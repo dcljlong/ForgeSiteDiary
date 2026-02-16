@@ -56,7 +56,7 @@ export default function Home() {
                 className="block rounded-lg border border-neutral-300 bg-white p-5 shadow-sm transition hover:shadow-md focus:outline-none focus:ring-2 focus:ring-neutral-900/30"
               >
                 <div className="text-base font-semibold">
-                  {job.jobNumber} — {job.name}
+                  {job.jobNumber} - {job.name}
                 </div>
                 <div className="mt-1 text-sm text-neutral-600">{job.mainContractor}</div>
                 <div className="text-xs text-neutral-500">{job.siteAddress}</div>

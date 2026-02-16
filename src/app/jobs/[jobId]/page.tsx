@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import Link from 'next/link';
 import { use, useEffect, useMemo, useRef, useState } from 'react';
 import { seedJobs } from '@/lib/domain/seedJobs';
@@ -181,4 +181,5 @@ export default function JobDetailPage({ params }: Props) {
     </main>
   );
 }
+
 
