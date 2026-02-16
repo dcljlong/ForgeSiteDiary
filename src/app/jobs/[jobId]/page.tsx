@@ -1,12 +1,12 @@
-﻿"use client";
+"use client";
 import Link from 'next/link';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { use, useEffect, useMemo, useRef, useState } from 'react';
 import { seedJobs } from '@/lib/domain/seedJobs';
 import { jobs } from '@/lib/domain/devStore';
 import { getOrCreateTodayEntry, updateDailyEntry } from '@/lib/domain/dailyEntryStore';
 
 type Props = {
-  params: { jobId: string };
+  params: Promise<{ jobId: string }>;
 };
 
 type SaveState = 'idle' | 'dirty' | 'saving' | 'saved' | 'error';
@@ -14,7 +14,8 @@ type SaveState = 'idle' | 'dirty' | 'saving' | 'saved' | 'error';
 export default function JobDetailPage({ params }: Props) {
   seedJobs();
 
-  const job = jobs.find((j) => j.id === params.jobId);
+  const { jobId } = use(params);
+  const job = jobs.find((j) => j.id === jobId);
 
   const [labourSummary, setLabourSummary] = useState('');
   const [materialsSummary, setMaterialsSummary] = useState('');
@@ -101,7 +102,7 @@ export default function JobDetailPage({ params }: Props) {
       <main className="min-h-screen bg-neutral-100 p-8 text-neutral-900">
         <h1 className="text-xl font-semibold">Job not found</h1>
         <p className="mt-2 text-sm text-neutral-600">
-          No job with id: <span className="font-mono">{params.jobId}</span>
+          No job with id: <span className="font-mono">{jobId}</span>
         </p>
         <Link href="/" className="mt-6 inline-block text-sm font-medium underline">
           Back to dashboard
