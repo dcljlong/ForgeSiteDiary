@@ -115,12 +115,12 @@ export default function JobDetailPage({ params }: Props) {
     <main className="min-h-screen bg-neutral-100 p-8 text-neutral-900">
       <div className="mb-6">
         <Link href="/" className="text-sm font-medium underline">
-          ← Back
+          â† Back
         </Link>
 
         <div className="mt-3 text-sm text-neutral-500">Job</div>
         <h1 className="text-2xl font-bold tracking-tight">
-          {job!.jobNumber} — {job!.name}
+          {job!.jobNumber} â€” {job!.name}
         </h1>
 
         <div className="mt-2 text-sm text-neutral-700">
@@ -146,7 +146,7 @@ export default function JobDetailPage({ params }: Props) {
             <div className="text-xs text-neutral-600">
               {saveState === 'idle' && <span>Ready</span>}
               {saveState === 'dirty' && <span>Unsaved changes</span>}
-              {saveState === 'saving' && <span>Saving…</span>}
+              {saveState === 'saving' && <span>Savingâ€¦</span>}
               {saveState === 'saved' && (
                 <span>Saved{lastSavedAt ? ` @ ${lastSavedAt}` : ''}</span>
               )}
@@ -170,7 +170,7 @@ export default function JobDetailPage({ params }: Props) {
                   scheduleSave();
                 }}
                 onBlur={flushSaveNow}
-                placeholder="Who was on site, hours, key work completed…"
+                placeholder="Who was on site, hours, key work completedâ€¦"
               />
             </div>
 
@@ -187,7 +187,7 @@ export default function JobDetailPage({ params }: Props) {
                   scheduleSave();
                 }}
                 onBlur={flushSaveNow}
-                placeholder="Deliveries, orders placed, shortages, backorders…"
+                placeholder="Deliveries, orders placed, shortages, backordersâ€¦"
               />
             </div>
 
@@ -204,7 +204,7 @@ export default function JobDetailPage({ params }: Props) {
                   scheduleSave();
                 }}
                 onBlur={flushSaveNow}
-                placeholder="RFIs, access constraints, variations, delays, H&S…"
+                placeholder="RFIs, access constraints, variations, delays, H&Sâ€¦"
               />
             </div>
           </div>
