@@ -8,7 +8,7 @@ export function seedJobs() {
 
   const base: Job[] = [
     {
-      id: uuid(),
+      id: 'CU-001',
       jobNumber: 'CU-001',
       name: 'Bethlehem Fitout',
       mainContractor: 'MainBuild Ltd',
@@ -19,7 +19,7 @@ export function seedJobs() {
       updatedAt: nowISO(),
     },
     {
-      id: uuid(),
+      id: 'CU-002',
       jobNumber: 'CU-002',
       name: 'Ceiling Replacement',
       mainContractor: 'Commercial Interiors NZ',
