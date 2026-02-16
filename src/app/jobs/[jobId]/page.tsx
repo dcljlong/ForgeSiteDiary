@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { seedJobs } from '@/lib/domain/seedJobs';
 import { jobs } from '@/lib/domain/devStore';
 
@@ -12,11 +13,14 @@ export default function JobDetailPage({ params }: Props) {
 
   if (!job) {
     return (
-      <main className="min-h-screen bg-neutral-100 p-8">
+      <main className="min-h-screen bg-neutral-100 p-8 text-neutral-900">
         <h1 className="text-xl font-semibold">Job not found</h1>
         <p className="mt-2 text-sm text-neutral-600">
           No job with id: <span className="font-mono">{params.jobId}</span>
         </p>
+        <Link href="/" className="mt-6 inline-block text-sm font-medium underline">
+          Back to dashboard
+        </Link>
       </main>
     );
   }
@@ -24,14 +28,24 @@ export default function JobDetailPage({ params }: Props) {
   return (
     <main className="min-h-screen bg-neutral-100 p-8 text-neutral-900">
       <div className="mb-6">
-        <div className="text-sm text-neutral-500">Job</div>
+        <Link href="/" className="text-sm font-medium underline">
+          ← Back
+        </Link>
+
+        <div className="mt-3 text-sm text-neutral-500">Job</div>
         <h1 className="text-2xl font-bold tracking-tight">
-          {job.jobNumber} � {job.name}
+          {job.jobNumber} — {job.name}
         </h1>
         <div className="mt-2 text-sm text-neutral-700">
-          <div><span className="font-semibold">Main Contractor:</span> {job.mainContractor}</div>
-          <div><span className="font-semibold">Site:</span> {job.siteAddress}</div>
-          <div><span className="font-semibold">Stage:</span> {job.stage}</div>
+          <div>
+            <span className="font-semibold">Main Contractor:</span> {job.mainContractor}
+          </div>
+          <div>
+            <span className="font-semibold">Site:</span> {job.siteAddress}
+          </div>
+          <div>
+            <span className="font-semibold">Stage:</span> {job.stage}
+          </div>
         </div>
       </div>
 
