@@ -1,4 +1,5 @@
-﻿import { Item, ItemType } from '@/types/domain';
+import { uuid } from '@/lib/domain/uuid';
+import { Item, ItemType } from '@/types/domain';
 
 export function shouldRollover(item: Item): boolean {
   switch (item.type) {
@@ -26,7 +27,7 @@ export function rolloverItems(
 
   return toCarry.map((item) => ({
     ...item,
-    id: crypto.randomUUID(),
+    id: uuid(),
     dayEntryId: newDayEntryId,
     rolledFromItemId: item.id,
     createdAt: todayISO,

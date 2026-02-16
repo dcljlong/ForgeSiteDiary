@@ -1,5 +1,6 @@
 import { dailyEntries } from '@/lib/domain/devStore';
 import { nowISO, todayLocalDate } from '@/lib/domain/dates';
+import { uuid } from '@/lib/domain/uuid';
 import { DailyEntry } from '@/types/dailyEntry';
 
 const STORAGE_KEY = 'fsd_dailyEntries_v1';
@@ -55,7 +56,7 @@ export function getOrCreateTodayEntry(jobId: string): DailyEntry {
   if (existing) return existing;
 
   const created: DailyEntry = {
-    id: crypto.randomUUID(),
+    id: uuid(),
     jobId,
     date: today,
     labourSummary: '',

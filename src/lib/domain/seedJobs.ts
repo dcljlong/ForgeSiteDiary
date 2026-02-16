@@ -1,13 +1,14 @@
-﻿import { jobs } from '@/lib/domain/devStore';
+import { jobs } from '@/lib/domain/devStore';
 import { Job } from '@/types/domain';
 import { nowISO } from '@/lib/domain/dates';
 
+import { uuid } from '@/lib/domain/uuid';
 export function seedJobs() {
   if (jobs.length > 0) return;
 
   const base: Job[] = [
     {
-      id: crypto.randomUUID(),
+      id: uuid(),
       jobNumber: 'CU-001',
       name: 'Bethlehem Fitout',
       mainContractor: 'MainBuild Ltd',
@@ -18,7 +19,7 @@ export function seedJobs() {
       updatedAt: nowISO(),
     },
     {
-      id: crypto.randomUUID(),
+      id: uuid(),
       jobNumber: 'CU-002',
       name: 'Ceiling Replacement',
       mainContractor: 'Commercial Interiors NZ',
