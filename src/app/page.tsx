@@ -1,4 +1,4 @@
-﻿import Link from 'next/link';
+import Link from 'next/link';
 import { seedJobs } from '@/lib/domain/seedJobs';
 import { jobs } from '@/lib/domain/devStore';
 import { calculatePrioritySummary } from '@/lib/domain/prioritySummary';
@@ -11,9 +11,7 @@ export default function Home() {
     <main className="min-h-screen bg-neutral-100 p-8 text-neutral-900">
       {/* Top Bar */}
       <div className="mb-8 flex items-center justify-between">
-        <h1 className="text-2xl font-bold tracking-tight">
-          ForgeSiteDiary
-        </h1>
+        <h1 className="text-2xl font-bold tracking-tight">ForgeSiteDiary</h1>
 
         <button className="rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800">
           + New Job
@@ -23,7 +21,6 @@ export default function Home() {
       <div className="grid grid-cols-12 gap-8">
         {/* Left Column */}
         <div className="col-span-9 space-y-6">
-
           {/* Priority Rail */}
           <div className="rounded-lg border border-neutral-300 bg-white p-6 shadow-sm">
             <h2 className="mb-4 text-sm font-semibold uppercase tracking-wide text-neutral-600">
@@ -55,18 +52,14 @@ export default function Home() {
             {jobs.map((job) => (
               <Link
                 key={job.id}
-                href={/jobs/}
-                className="block rounded-lg border border-neutral-300 bg-white p-5 shadow-sm hover:shadow-md transition focus:outline-none focus:ring-2 focus:ring-neutral-900/30"
+                href={`/jobs/${job.id}`}
+                className="block rounded-lg border border-neutral-300 bg-white p-5 shadow-sm transition hover:shadow-md focus:outline-none focus:ring-2 focus:ring-neutral-900/30"
               >
                 <div className="text-base font-semibold">
-                  {job.jobNumber} — {job.name}
+                  {job.jobNumber} � {job.name}
                 </div>
-                <div className="mt-1 text-sm text-neutral-600">
-                  {job.mainContractor}
-                </div>
-                <div className="text-xs text-neutral-500">
-                  {job.siteAddress}
-                </div>
+                <div className="mt-1 text-sm text-neutral-600">{job.mainContractor}</div>
+                <div className="text-xs text-neutral-500">{job.siteAddress}</div>
               </Link>
             ))}
           </div>
@@ -78,9 +71,7 @@ export default function Home() {
             <h2 className="mb-4 text-sm font-semibold uppercase tracking-wide text-neutral-600">
               Activity
             </h2>
-            <p className="text-sm text-neutral-500">
-              (Connected in M5)
-            </p>
+            <p className="text-sm text-neutral-500">(Connected in M5)</p>
           </div>
         </div>
       </div>
