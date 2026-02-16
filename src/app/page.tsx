@@ -1,4 +1,5 @@
-﻿import { seedJobs } from '@/lib/domain/seedJobs';
+﻿import Link from 'next/link';
+import { seedJobs } from '@/lib/domain/seedJobs';
 import { jobs } from '@/lib/domain/devStore';
 import { calculatePrioritySummary } from '@/lib/domain/prioritySummary';
 
@@ -52,9 +53,10 @@ export default function Home() {
           {/* Jobs */}
           <div className="space-y-4">
             {jobs.map((job) => (
-              <div
+              <Link
                 key={job.id}
-                className="rounded-lg border border-neutral-300 bg-white p-5 shadow-sm hover:shadow-md transition"
+                href={/jobs/}
+                className="block rounded-lg border border-neutral-300 bg-white p-5 shadow-sm hover:shadow-md transition focus:outline-none focus:ring-2 focus:ring-neutral-900/30"
               >
                 <div className="text-base font-semibold">
                   {job.jobNumber} — {job.name}
@@ -65,7 +67,7 @@ export default function Home() {
                 <div className="text-xs text-neutral-500">
                   {job.siteAddress}
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
