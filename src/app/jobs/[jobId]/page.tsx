@@ -115,12 +115,12 @@ export default function JobDetailPage({ params }: Props) {
     <main className="min-h-screen bg-neutral-100 p-8 text-neutral-900">
       <div className="mb-6">
         <Link href="/" className="text-sm font-medium underline">
-          â† Back
+          Ã¢â€ Â Back
         </Link>
 
         <div className="mt-3 text-sm text-neutral-500">Job</div>
         <h1 className="text-2xl font-bold tracking-tight">
-          {job!.jobNumber} â€” {job!.name}
+          {job!.jobNumber} Ã¢â‚¬â€ {job!.name}
         </h1>
 
         <div className="mt-2 text-sm text-neutral-700">
@@ -146,7 +146,7 @@ export default function JobDetailPage({ params }: Props) {
             <div className="text-xs text-neutral-600">
               {saveState === 'idle' && <span>Ready</span>}
               {saveState === 'dirty' && <span>Unsaved changes</span>}
-              {saveState === 'saving' && <span>Savingâ€¦</span>}
+              {saveState === 'saving' && <span>SavingÃ¢â‚¬Â¦</span>}
               {saveState === 'saved' && (
                 <span>Saved{lastSavedAt ? ` @ ${lastSavedAt}` : ''}</span>
               )}
@@ -170,7 +170,7 @@ export default function JobDetailPage({ params }: Props) {
                   scheduleSave();
                 }}
                 onBlur={flushSaveNow}
-                placeholder="Who was on site, hours, key work completedâ€¦"
+                placeholder="Who was on site, hours, key work completedÃ¢â‚¬Â¦"
               />
             </div>
 
@@ -187,7 +187,7 @@ export default function JobDetailPage({ params }: Props) {
                   scheduleSave();
                 }}
                 onBlur={flushSaveNow}
-                placeholder="Deliveries, orders placed, shortages, backordersâ€¦"
+                placeholder="Deliveries, orders placed, shortages, backordersÃ¢â‚¬Â¦"
               />
             </div>
 
@@ -204,7 +204,7 @@ export default function JobDetailPage({ params }: Props) {
                   scheduleSave();
                 }}
                 onBlur={flushSaveNow}
-                placeholder="RFIs, access constraints, variations, delays, H&Sâ€¦"
+                placeholder="RFIs, access constraints, variations, delays, H&SÃ¢â‚¬Â¦"
               />
             </div>
           </div>
