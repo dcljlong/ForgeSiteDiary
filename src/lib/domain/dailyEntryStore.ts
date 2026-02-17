@@ -1,13 +1,12 @@
 import { dailyEntries } from '@/lib/domain/devStore';
 import { nowISO, todayLocalDate } from '@/lib/domain/dates';
-import { uuid } from '@/lib/domain/uuid';
 import { DailyEntry } from '@/types/dailyEntry';
+import { uuid } from '@/lib/domain/uuid';
 
 const STORAGE_KEY = 'fsd_dailyEntries_v1';
-
 let loaded = false;
 
-function isBrowser() {
+function canUseStorage(): boolean {
   return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
 }
 
@@ -15,50 +14,40 @@ function ensureLoaded() {
   if (loaded) return;
   loaded = true;
 
-  if (!isBrowser()) return;
+  if (!canUseStorage()) return;
 
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return;
 
     const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return;
-
-    // Replace in-memory array contents in-place
-    dailyEntries.length = 0;
-    for (const e of parsed) {
-      // Minimal shape check (keep tolerant for now)
-      if (e && typeof e === 'object' && typeof e.id === 'string' && typeof e.jobId === 'string' && typeof e.date === 'string') {
-        dailyEntries.push(e as DailyEntry);
-      }
+    if (Array.isArray(parsed)) {
+      dailyEntries.splice(0, dailyEntries.length, ...(parsed as DailyEntry[]));
     }
   } catch {
-    // Ignore corrupted storage
+    // ignore bad storage
   }
 }
 
 function save() {
-  if (!isBrowser()) return;
-
+  if (!canUseStorage()) return;
   try {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(dailyEntries));
   } catch {
-    // Ignore quota / storage errors
+    // ignore storage quota/errors
   }
 }
 
-export function getOrCreateTodayEntry(jobId: string): DailyEntry {
+export function getOrCreateEntry(jobId: string, date: string): DailyEntry {
   ensureLoaded();
 
-  const today = todayLocalDate();
-
-  const existing = dailyEntries.find((e) => e.jobId === jobId && e.date === today);
+  const existing = dailyEntries.find((e) => e.jobId === jobId && e.date === date);
   if (existing) return existing;
 
   const created: DailyEntry = {
     id: uuid(),
     jobId,
-    date: today,
+    date,
     labourSummary: '',
     materialsSummary: '',
     issuesSummary: '',
@@ -68,6 +57,28 @@ export function getOrCreateTodayEntry(jobId: string): DailyEntry {
   dailyEntries.push(created);
   save();
   return created;
+}
+
+export function getOrCreateTodayEntry(jobId: string): DailyEntry {
+  return getOrCreateEntry(jobId, todayLocalDate());
+}
+
+export function listJobEntryDates(jobId: string): string[] {
+  ensureLoaded();
+  return dailyEntries
+    .filter((e) => e.jobId === jobId)
+    .map((e) => e.date)
+    .sort((a, b) => (a < b ? 1 : a > b ? -1 : 0)); // desc
+}
+
+export function findMostRecentBefore(jobId: string, date: string): DailyEntry | undefined {
+  ensureLoaded();
+
+  const candidates = dailyEntries
+    .filter((e) => e.jobId === jobId && e.date < date)
+    .sort((a, b) => (a < b ? 1 : a > b ? -1 : 0)); // desc
+
+  return candidates[0];
 }
 
 export function updateDailyEntry(id: string, patch: Partial<DailyEntry>): DailyEntry | undefined {
