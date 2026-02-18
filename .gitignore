@@ -23,3 +23,6 @@ build/
 
 # Misc
 *.tsbuildinfo
+
+# Local backups
+*.bak_*
